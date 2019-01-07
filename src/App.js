@@ -1,25 +1,44 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import axios from "axios";
+import { PartsSearch, TestControls } from "./components";
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      selection: null,
+      years: ["2019", "2018", "2017", "2016", "2015"],
+      makes: ["Ford", "Toyota", "Nissan", "Gir"],
+      models: ["2.0", "2.1", "2.2", "2.3"]
+    };
+  }
+
+  async handleSearch() {}
+
+  renderList(list, handleChange) {
+    return (
+      <select onChange={handleChange}>
+        {list.map(i => (
+          <option key={i} value={i}>
+            {i}
+          </option>
+        ))}
+      </select>
+    );
+  }
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <div
+        style={{
+          margin: "2rem",
+          display: "flex",
+          justifyContent: "space-around",
+          alignItems: "center"
+        }}
+      >
+        <PartsSearch />
+        <TestControls />
       </div>
     );
   }
