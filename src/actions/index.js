@@ -22,28 +22,32 @@ export const submitSearch = data => async (dispatch, getState, api) => {
   });
   console.log("data", data);
   const { searchTerm, vin } = data;
-  const res = await localReq.post("http://localhost:3001/search/autozone", {
-    searchTerm,
-    vin,
-    azCategory: "",
-    user: {
-      api: {
-        expires: "2019-12-23T01:54:06.216Z",
-        token:
-          "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiI1YzFlZWFiZTM1ZGNlOTM4ZDM1NTc1ODEiLCJleHAiOjE1NzcwNjYwNDYyMTZ9.oBKZp6Snq0M09ahr7ES4BuddTgeaR3sUJ5FxygfubaM"
-      },
-      providers: ["autozone"],
-      autozone: { phone: "6023312706", pin: "764505" },
-      partsAuthority: {},
-      advanceAuto: {},
-      __v: 0,
-      password: "$2b$10$IVbzwQO/Ma3iODdunVe/P.d275Wf0NKSQz887/YA3n.b4SSTDnO6K",
-      email: "alek@aleks.co",
-      name: "Aleks",
-      mode: "LIVE",
-      _id: "5c1eeabe35dce938d3557581"
+  const res = await localReq.post(
+    "http://104.248.211.48:3001/search/autozone",
+    {
+      searchTerm,
+      vin,
+      azCategory: "",
+      user: {
+        api: {
+          expires: "2019-12-23T01:54:06.216Z",
+          token:
+            "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiI1YzFlZWFiZTM1ZGNlOTM4ZDM1NTc1ODEiLCJleHAiOjE1NzcwNjYwNDYyMTZ9.oBKZp6Snq0M09ahr7ES4BuddTgeaR3sUJ5FxygfubaM"
+        },
+        providers: ["autozone"],
+        autozone: { phone: "6023312706", pin: "764505" },
+        partsAuthority: {},
+        advanceAuto: {},
+        __v: 0,
+        password:
+          "$2b$10$IVbzwQO/Ma3iODdunVe/P.d275Wf0NKSQz887/YA3n.b4SSTDnO6K",
+        email: "alek@aleks.co",
+        name: "Aleks",
+        mode: "LIVE",
+        _id: "5c1eeabe35dce938d3557581"
+      }
     }
-  });
+  );
 
   if (res.status !== 201) {
     dispatch({
