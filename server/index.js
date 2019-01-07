@@ -1,5 +1,6 @@
 require("dotenv").config();
 var debug = require("debug")("parts-detect");
+var cors = require("cors");
 
 var express = require("express"),
   path = require("path"),
@@ -8,6 +9,7 @@ var express = require("express"),
   api = require("./routes/api"),
   services = require("./services"),
   app = express();
+app.use(cors());
 
 // view engine setup
 app.use(bodyParser.json({ limit: "1mb" }));
