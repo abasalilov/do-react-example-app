@@ -5,8 +5,7 @@
   "scripts": {
     "start:server": "node server/index.js",
     "build": "react-scripts build",
-    "dev:client": "react-scripts start",
-    "dev:server": "node server/index.js",
+    "deploy": "npm-run-all --parallel prod:*",
     "prod:client": "serve -s build",
     "prod:server": "node server/index.js"
   },
