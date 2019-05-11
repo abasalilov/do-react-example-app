@@ -26,11 +26,13 @@ const settings = {
 
 const style = {
   select: {
+    border: "solid orange 1px",
     margin: "3rem",
     fontSize: "1rem",
     width: "25%"
   },
   reqOption: {
+    border: "solid orange 1px",
     margin: "3rem",
     fontSize: "1rem"
   },
@@ -42,19 +44,22 @@ const style = {
     justifyContent: "center"
   },
   container: {
-    border: "solid blue 2px"
+    border: "solid orange 2px"
   },
   title: {
-    border: "solid blue",
+    border: "solid orange",
     width: "50%",
     height: "60rem",
     display: "flex",
     justifyContent: "center",
-    overflowY: "scroll"
+    overflow: "scroll"
   },
   spinner: {
     border: "solid red 3px",
     width: "30rem !important"
+  },
+  row_new: {
+    width: "50rem"
   }
 };
 
@@ -69,22 +74,14 @@ class TestControlComponent extends Component {
     };
   }
 
-  async componentDidMount() {}
-
   renderPartsList() {
-    return this.props.parts.map((part, idx) => (
-      <div>
-        <div
-          style={{
-            margin: "2rem 0rem",
-            fontSize: "2rem",
-            borderBottom: "solid orange 4px",
-            width: "100%"
-          }}
-        >{`Search Result #${idx + 1}`}</div>
-        <Part part={part} />
-      </div>
-    ));
+    return this.props.parts.map((part, idx) => {
+      return (
+        <div key={idx}>
+          <Part part={part} />
+        </div>
+      );
+    });
   }
 
   renderList(list, handleChange) {
@@ -102,7 +99,7 @@ class TestControlComponent extends Component {
   render() {
     return (
       <div className="container-fluid" style={style.title}>
-        <div className="row">
+        <div style={style.row_new}>
           <div className="paragraph">Results/Errors</div>
           {this.props.pending && (
             <Spinner style={style.spinner} {...settings} />
@@ -114,38 +111,6 @@ class TestControlComponent extends Component {
   }
 }
 
-const extraPart = {
-  Manufacturer: ["STP"],
-  Price: [{ ListPrice: ["12.31"], CoreCost: ["0.0"] }],
-  Description: ["Oil Filter"],
-  Availability: ["Available"],
-  UserArea: [
-    {
-      PartTypeName: ["Oil Filter"],
-      InformationImage: [
-        {
-          ImageUrl: [
-            "http://econtent.autozone.com:24999/znetcs/product-info/en/us/chl/s9972/image/4/",
-            "http://econtent.autozone.com:24999/znetcs/additional-prod-images/en/us/chl/s9972/18/image/4/",
-            "http://econtent.autozone.com:24999/znetcs/additional-prod-images/en/us/chl/s9972/19/image/4/",
-            "http://econtent.autozone.com:24999/znetcs/additional-prod-images/en/us/chl/s9972/06/image/4/"
-          ]
-        }
-      ],
-      Warranty: [""],
-      YourPrice: ["6.19"],
-      PartNumber: ["S9972"],
-      QuickNotes: [""],
-      TechNotes: [""],
-      LineCode: ["CHL"],
-      ItemNumber: ["831645"],
-      StoreAvailable: ["4"],
-      InNetworkAvail: ["23"],
-      HubAvail: ["26"],
-      OEMData: [""]
-    }
-  ]
-};
 const mapStateToProps = state => {
   const {
     search: { result, pending, parts }
