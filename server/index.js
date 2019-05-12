@@ -8,11 +8,7 @@ var express = require("express"),
   api = require("./routes/api"),
   app = express();
 
-app.use(
-  cors({
-    origin: "http://localhost:5000"
-  })
-);
+app.use();
 
 // view engine setup
 app.use(bodyParser.json({ limit: "1mb" }));
@@ -36,7 +32,7 @@ app.use(function(err, req, res, next) {
 
 app.set("port", process.env.SERVERPORT);
 
-var server = app.listen(app.get("port"), function() {
+var server = app.listen(app.get("port"), cors(), function() {
   console.log("Express server listening on port " + server.address().port);
   debug("Express server listening on port " + server.address().port);
 });

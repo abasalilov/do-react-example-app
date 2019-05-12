@@ -9,7 +9,9 @@ export const SEARCH_FAILED = "SEARCH_FAILED";
 const headers = {
   "x-requested-with": "XMLHttpRequest",
   "x-access-token":
-    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiI1YzFlZWFiZTM1ZGNlOTM4ZDM1NTc1ODEiLCJleHAiOjE1NzcwNjYwNDYyMTZ9.oBKZp6Snq0M09ahr7ES4BuddTgeaR3sUJ5FxygfubaM"
+    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiI1YzFlZWFiZTM1ZGNlOTM4ZDM1NTc1ODEiLCJleHAiOjE1NzcwNjYwNDYyMTZ9.oBKZp6Snq0M09ahr7ES4BuddTgeaR3sUJ5FxygfubaM",
+  withCredentials: "false",
+  "Access-Control-Allow-Origin": "*"
 };
 
 const localReq = axios.create({
@@ -20,8 +22,8 @@ export const submitSearch = data => async (dispatch, getState, api) => {
   dispatch({
     type: SEARCH_SUBMIT
   });
-  console.log("data being sent out", data);
   const { searchTerm, vin } = data;
+  console.log("localReq", localReq);
   const res = await localReq.post("http://localhost:3001/search/autozone", {
     searchTerm,
     vin,
