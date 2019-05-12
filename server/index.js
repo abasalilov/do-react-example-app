@@ -4,12 +4,15 @@ var cors = require("cors");
 
 var express = require("express"),
   path = require("path"),
-  logger = require("morgan"),
   bodyParser = require("body-parser"),
   api = require("./routes/api"),
-  services = require("./services"),
   app = express();
-app.use(cors());
+
+app.use(
+  cors({
+    origin: "http://localhost:5000"
+  })
+);
 
 // view engine setup
 app.use(bodyParser.json({ limit: "1mb" }));
