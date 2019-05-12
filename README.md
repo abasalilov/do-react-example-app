@@ -12,3 +12,13 @@ proxy_set_header Upgrade $http_upgrade;
 proxy_cache_bypass \$http_upgrade;
 }
 }
+
+### Install Yarn on Ubuntu
+
+- https://vitux.com/how-to-install-yarn-npm-client-on-ubuntu-and-manage-dependencies-through-it/
+- Step 1) Install Curl for adding GPG key for Yarn: sudo apt install curl
+- Step 2) Add Yarn gpg key: curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+- Step 3) Add Yarn APT repository to your system: echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+- Step 4) Upgrade your system’s Repository Index: sudo apt-get update
+- Step 5) Install Yarn: sudo apt-get install yarn
+- Step 5a) Verify Yarn Installation: yarn --version
