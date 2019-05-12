@@ -10,7 +10,6 @@ const headers = {
   "x-requested-with": "XMLHttpRequest",
   "x-access-token":
     "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiI1YzFlZWFiZTM1ZGNlOTM4ZDM1NTc1ODEiLCJleHAiOjE1NzcwNjYwNDYyMTZ9.oBKZp6Snq0M09ahr7ES4BuddTgeaR3sUJ5FxygfubaM",
-  withCredentials: "false",
   "Access-Control-Allow-Origin": "*"
 };
 
@@ -23,7 +22,6 @@ export const submitSearch = data => async (dispatch, getState, api) => {
     type: SEARCH_SUBMIT
   });
   const { searchTerm, vin } = data;
-  console.log("localReq", localReq);
   const res = await localReq.post(
     "http://104.248.211.48:3001/search/autozone",
     {
@@ -50,7 +48,6 @@ export const submitSearch = data => async (dispatch, getState, api) => {
       }
     }
   );
-  console.log("res", res);
   console.log("res.data", res.data);
   if (res.status !== 201) {
     dispatch({

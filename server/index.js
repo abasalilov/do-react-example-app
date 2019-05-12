@@ -3,12 +3,10 @@ var debug = require("debug")("parts-detect");
 var cors = require("cors");
 
 var express = require("express"),
-  path = require("path"),
   bodyParser = require("body-parser"),
   api = require("./routes/api"),
   app = express();
-
-app.use();
+app.use(cors());
 
 // view engine setup
 app.use(bodyParser.json({ limit: "1mb" }));
@@ -32,7 +30,7 @@ app.use(function(err, req, res, next) {
 
 app.set("port", process.env.SERVERPORT);
 
-var server = app.listen(app.get("port"), cors(), function() {
+var server = app.listen(app.get("port"), function() {
   console.log("Express server listening on port " + server.address().port);
   debug("Express server listening on port " + server.address().port);
 });
