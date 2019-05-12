@@ -44,7 +44,7 @@ export const submitSearch = data => async (dispatch, getState, api) => {
       _id: "5c1eeabe35dce938d3557581"
     }
   });
-
+  console.log("res", res);
   console.log("res.data", res.data);
   if (res.status !== 201) {
     dispatch({
