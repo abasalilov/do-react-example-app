@@ -51,6 +51,7 @@
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
     "request": "*",
+    "serve": "^11.0.0",
     "shortid": "^2.2.2",
     "soap": "^0.25.0",
     "underscore": "^1.8.3",
