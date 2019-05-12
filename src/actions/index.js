@@ -9,7 +9,9 @@ export const SEARCH_FAILED = "SEARCH_FAILED";
 const headers = {
   "x-requested-with": "XMLHttpRequest",
   "x-access-token":
-    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiI1YzFlZWFiZTM1ZGNlOTM4ZDM1NTc1ODEiLCJleHAiOjE1NzcwNjYwNDYyMTZ9.oBKZp6Snq0M09ahr7ES4BuddTgeaR3sUJ5FxygfubaM"
+    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiI1YzFlZWFiZTM1ZGNlOTM4ZDM1NTc1ODEiLCJleHAiOjE1NzcwNjYwNDYyMTZ9.oBKZp6Snq0M09ahr7ES4BuddTgeaR3sUJ5FxygfubaM",
+  withCredentials: "false",
+  "Access-Control-Allow-Origin": "*"
 };
 
 const localReq = axios.create({
@@ -20,8 +22,8 @@ export const submitSearch = data => async (dispatch, getState, api) => {
   dispatch({
     type: SEARCH_SUBMIT
   });
-  console.log("data", data);
   const { searchTerm, vin } = data;
+  console.log("localReq", localReq);
   const res = await localReq.post(
     "http://104.248.211.48:3001/search/autozone",
     {
@@ -48,7 +50,50 @@ export const submitSearch = data => async (dispatch, getState, api) => {
       }
     }
   );
+  console.log("res", res);
+  console.log("res.data", res.data);
+  if (res.status !== 201) {
+    dispatch({
+      type: SEARCH_SUCCESS,
+      payload: res.data.autozone.parts
+    });
+  } else {
+    dispatch({
+      type: SEARCH_FAILED,
+      payload: res
+    });
+  }
+};
 
+export const submitNapaSearch = data => async (dispatch, getState, api) => {
+  dispatch({
+    type: SEARCH_SUBMIT
+  });
+  const { searchTerm, vin } = data;
+  const res = await localReq.post("http://localhost:3001/search/napa", {
+    searchTerm,
+    vin,
+    azCategory: "",
+    user: {
+      api: {
+        expires: "2019-12-23T01:54:06.216Z",
+        token:
+          "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiI1YzFlZWFiZTM1ZGNlOTM4ZDM1NTc1ODEiLCJleHAiOjE1NzcwNjYwNDYyMTZ9.oBKZp6Snq0M09ahr7ES4BuddTgeaR3sUJ5FxygfubaM"
+      },
+      providers: ["autozone"],
+      autozone: { phone: "6023312706", pin: "764505" },
+      partsAuthority: {},
+      advanceAuto: {},
+      __v: 0,
+      password: "$2b$10$IVbzwQO/Ma3iODdunVe/P.d275Wf0NKSQz887/YA3n.b4SSTDnO6K",
+      email: "alek@aleks.co",
+      name: "Aleks",
+      mode: "LIVE",
+      _id: "5c1eeabe35dce938d3557581"
+    }
+  });
+
+  console.log("res.status", res.data);
   if (res.status !== 201) {
     dispatch({
       type: SEARCH_SUCCESS,

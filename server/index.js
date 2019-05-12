@@ -4,12 +4,11 @@ var cors = require("cors");
 
 var express = require("express"),
   path = require("path"),
-  logger = require("morgan"),
   bodyParser = require("body-parser"),
   api = require("./routes/api"),
-  services = require("./services"),
   app = express();
-app.use(cors());
+
+app.use();
 
 // view engine setup
 app.use(bodyParser.json({ limit: "1mb" }));
@@ -33,7 +32,7 @@ app.use(function(err, req, res, next) {
 
 app.set("port", process.env.SERVERPORT);
 
-var server = app.listen(app.get("port"), function() {
+var server = app.listen(app.get("port"), cors(), function() {
   console.log("Express server listening on port " + server.address().port);
   debug("Express server listening on port " + server.address().port);
 });

@@ -10,8 +10,7 @@ router.post("/search/autozone", services.auth.restrict, function(
   res,
   next
 ) {
-  console.log("req.body in /search/autozone", req.body);
-  console.log("req.user in /search/autozone", req.user);
+  console.log("req.body in /search/autozone", req.headers);
 
   var retObj = {
     geometry: req.body.geometry
@@ -121,7 +120,7 @@ router.post("/search/autozone", services.auth.restrict, function(
       }
     ],
     function(err) {
-      if (err) return next(err);
+      if (err) return res.send(err);
 
       res.send(retObj);
     }
