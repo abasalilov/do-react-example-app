@@ -1,97 +1,114 @@
 import React, { Component } from "react";
-import { UserAreaComponent } from "./UserAreaComponent";
 
 const styles = {
-  partContainer: {
-    margin: "1rem"
-  },
-  simpleData: {
-    margin: "1rem"
-  },
-  priceBlock: {
-    margin: "1rem"
-  },
-  coreCost: {
-    margin: "1rem"
-  },
-  priceSideBySide: {
+  availRow: {
     display: "flex",
     flexDirection: "row",
-    justifyContent: "space-around"
+    justifyContent: "space-between",
+    margin: "2rem",
+    borderBottom: "solid grey 1px",
+    fontSize: "2rem"
   },
-  uaBlock: {
-    margin: "1rem"
-  },
-  box: {
-    width: "1rem",
-    height: "1rem",
-    backgroundColor: "orange",
-    marginRight: "1rem"
-  },
-  sBs: {
+  descRow: {
     display: "flex",
     flexDirection: "row",
-    alignItems: "center"
+    justifyContent: "space-between",
+    margin: "2rem",
+    borderBottom: "solid grey 1px",
+    fontSize: "2rem"
   },
-  separator: {
-    height: "2px",
-    backgroundColor: "green",
-    margin: "2rem 0",
-    width: "100%"
+  manuRow: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    margin: "2rem",
+    borderBottom: "solid grey 1px",
+    fontSize: "2rem"
+  },
+  priceRow: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    margin: "2rem",
+    borderBottom: "solid grey 1px",
+    fontSize: "2rem"
+  },
+  uaRow: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    margin: "2rem",
+    borderBottom: "solid grey 1px",
+    fontSize: "2rem"
   }
 };
 
-const SimpleBlock = () => <div style={styles.box} />;
-
 class PartComponent extends Component {
-  render() {
-    const {
-      Availability,
-      Description,
-      Manufacturer,
-      Price,
-      UserArea
-    } = this.props.part;
-    return (
-      <div style={styles.partContainer}>
-        <div style={styles.separator} />
-        <div style={styles.simpleData}>
-          <div style={styles.sBs}>
-            <SimpleBlock /> Availability: {`${Availability}`}
-          </div>
-        </div>
-        <div style={styles.simpleData}>
-          <div style={styles.sBs}>
-            <SimpleBlock />
-            <div>Description: {`${Description}`}</div>
-          </div>
-        </div>
-        <div style={styles.simpleData}>
-          <div style={styles.sBs}>
-            <SimpleBlock />
-            <div>Manufacturer: {`${Manufacturer}`}</div>
-          </div>
-        </div>
-        <div style={styles.priceBlock}>
-          <div style={styles.sBs}>
-            <SimpleBlock />
-            Price
-            <div style={styles.priceSideBySide}>
-              <div style={styles.coreCost}>{`Core Price: ${
-                Price[0].CoreCost
-              }`}</div>
-              <div style={styles.coreCost}>{`List Price: ${
-                Price[0].ListPrice
-              }`}</div>
-            </div>
-          </div>
-        </div>
+  renderImages(images) {
+    return images.map((image, idx) => {
+      return (
         <div>
-          UserArea
-          <div style={styles.uaBlock}>
-            <UserAreaComponent data={UserArea} />
-          </div>
+          <div
+            style={{
+              margin: "3rem 0rem 2rem 2rem",
+              fontSize: "2rem",
+              borderBottom: "solid orange 1px",
+              width: "80%"
+            }}
+          >{`Image # ${idx + 1}`}</div>
+          <img src={image} style={{ margin: "2rem" }} alt="empty img" />
         </div>
+      );
+    });
+  }
+
+  renderUserArea() {
+    const { UserArea } = this.props.part;
+    const refObj = UserArea[0];
+    const dataList = Object.keys(UserArea[0]);
+
+    return dataList.map(datum => {
+      const shouldRenderImages =
+        typeof refObj[datum][0].ImageUrl !== "undefined";
+
+      if (!shouldRenderImages) {
+        const data = refObj[datum][0];
+        return (
+          <div style={styles.uaRow}>
+            <div>{`${datum}: `}</div>
+            <div>{`${data} `}</div>
+          </div>
+        );
+      } else {
+        return this.renderImages(refObj[datum][0].ImageUrl);
+      }
+    });
+  }
+
+  render() {
+    const { Availability, Description, Manufacturer, Price } = this.props.part;
+
+    return (
+      <div style={{ width: "40rem" }}>
+        <div style={styles.availRow}>
+          <div>Availability</div>
+          <div>{`${Availability[0]}`}</div>
+        </div>
+        <div style={styles.descRow}>
+          <div>Description</div>
+          <div>{`${Description[0]}`}</div>
+        </div>
+        <div style={styles.descRow}>
+          <div>Manufacturer</div>
+          <div>{`${Manufacturer[0]}`}</div>
+        </div>
+        <div style={styles.priceRow}>
+          <div>Price</div>
+          <div>{`List: $${Price[0].ListPrice[0]}`}</div>
+          <div>{`Core: $${Price[0].CoreCost[0]}`}</div>
+        </div>
+        {this.renderUserArea()}
+        <div />
       </div>
     );
   }

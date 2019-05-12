@@ -2,7 +2,7 @@
   "apps": [
     {
       "name": "pd-test",
-      "script": "npm run deploy",
+      "script": "npm deploy",
       "watch": true,
       "NODE_ENV": "staging"
     }
