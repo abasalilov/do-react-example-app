@@ -35,7 +35,7 @@
     "express": "^4.16.4",
     "jwt-simple": "^0.5.5",
     "moment": "^2.23.0",
-    "mongoose": "^5.4.0",
+    "mongoose": "^5.7.5",
     "morgan": "^1.9.1",
     "mysql": "^2.16.0",
     "node-rest-client": "1.4.4",
